@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import style from './common.module.scss';
+import {IPost} from "./components/post/types/IPost";
+import Loader from "./components/loader/loader";
+import MainPage from "./view/main-page/mainPage";
+import {addPostsToStore} from "./store/posts/actions";
+import {connect, ConnectedProps} from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const mapDispatch = {addPostsToStore};
+
+const connector = connect(null, mapDispatch);
+
+type Props = ConnectedProps<typeof connector>
+type State = { loading: boolean };
+
+class App extends React.Component<Props, State> {
+    constructor(props: Props) {
+        super(props);
+        this.state = { loading: true };
+    }
+
+    componentDidMount() {
+        setTimeout(() => this.loadPosts(), 1000);
+    }
+
+    loadPosts() {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => response.json())
+            .then((posts: IPost[]) => {
+                this.props.addPostsToStore(posts);
+                this.setState({loading: false});
+            })
+    }
+
+    render() {
+        return (
+            <div className={style.appContainer}>
+                { this.state.loading ? <Loader/> : <MainPage/> }
+            </div>
+        );
+    }
 }
 
-export default App;
+export default connector(App);
