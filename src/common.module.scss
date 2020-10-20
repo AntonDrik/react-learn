@@ -2,8 +2,9 @@
   box-sizing: border-box;
 }
 
-body {
+body, ul {
   margin: 0;
+  padding: 0;
 }
 
 p {
@@ -13,17 +14,16 @@ p {
 .appContainer {
   width: 100%;
   height: 100vh;
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .container {
   overflow-y: auto;
   padding: 10px;
-  background-color: #f1f1f1;
+  background-color: #dee7e8;
+  height: calc(100vh - 55px);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .icon {

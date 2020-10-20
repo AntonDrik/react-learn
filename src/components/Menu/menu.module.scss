@@ -1,0 +1,25 @@
+.container {
+  position: static;
+  top: 0;
+  left: 0;
+  padding: 16px;
+  background-color: #015C65;
+  width: 100%;
+}
+
+.nav {
+  display: inline;
+
+  & li {
+    display: inline;
+    font-size: 20px;
+    padding: 10px;
+
+    & a {
+      color: #ffffff;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+}

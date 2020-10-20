@@ -6,24 +6,35 @@ import {ReactComponent as MoreInfoIcon} from '../../assets/img/more-info.svg';
 import {useDispatch}                    from "react-redux";
 import {IPostProps}                     from "./types/IPostProps";
 import {cutText}                        from "../../utils/cutText";
-import {openPost, toggleFavorite}       from "../../store/posts/actions";
+import {toggleFavorite}                 from "../../store/posts/actions";
 import {setClasses}                     from "../../utils/setClasses";
+import {openModal}                      from "../../store/modal/actions";
+import {PostInfo}                       from "../PostInfo/PostInfo";
 
-export function Post({post}: IPostProps): ReactElement {
+export function Post(
+    {
+        post,
+        size = 4
+    }: IPostProps
+): ReactElement {
 
     const dispatch = useDispatch();
 
     const getCardTitle = () => cutText(post.title, 25);
     const getCardBody = () => cutText(post.body, 75);
     const getStarClass = () => (!post.isFavorite) ? style.starIcon_inactive : style.starIcon_active;
+    const getContainerSize = () => `calc((100% / ${size}) - 2rem)`;
 
-    const handleMoreInfoClick = () => dispatch(openPost(post));
-
+    const handleMoreInfoClick = () => {
+        dispatch(
+            openModal(<PostInfo post={post}/>, {title: getCardTitle()})
+        );
+    }
     const handleToggleFavoriteClick = () => dispatch(toggleFavorite(post.id));
 
     return <>
 
-        <div className={style.card}>
+        <div className={style.card} style={{width: getContainerSize()}}>
             <div className={style.cardTitle}>
                 <span>{getCardTitle()}</span>
                 <div className={style.cardControls}>

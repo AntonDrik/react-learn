@@ -1,13 +1,15 @@
-import React from 'react';
-import {render} from 'react-dom';
-import App from './App';
+import React              from 'react';
+import {render}           from 'react-dom';
+import App                from './App';
 import * as serviceWorker from './serviceWorker';
-import {Provider} from 'react-redux';
-import store from "./store/store";
+import {Provider}         from 'react-redux';
+import store              from "./store/store";
+import {ModalContainer}   from "./components/Modal/ModalContainer";
 
 const app = (
     <Provider store={store}>
         <App/>
+        <ModalContainer/>
     </Provider>
 );
 

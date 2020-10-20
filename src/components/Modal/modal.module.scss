@@ -1,0 +1,44 @@
+.overlay {
+  background-color: #0000004f;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: .3rem;
+}
+
+.cardTitle {
+  background-color: #dee7e8;
+  padding: 10px;
+  border-radius: .3rem  .3rem 0 0;
+  font-weight: bold;
+  font-size: 22px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardControls {
+  display: flex;
+}
+
+.cardBody {
+  padding: 10px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.closeIcon {
+  width: 20px;
+  height: 20px;
+}

@@ -1,10 +1,11 @@
 import {IPostsState, PostsAction} from "./types";
-import {POSTS} from "../actionTypes";
-import {IPostTypes} from "../../components/post/types/IPost";
+import {POSTS}                    from "../actionTypes";
+import {IPostTypes}               from "../../components/Post/types/IPost";
 
 export const initialState: IPostsState = {
     posts: [],
-    openedPost: undefined
+    openedPost: undefined,
+    loaded: false
 }
 
 export function postsReducer(
@@ -12,16 +13,17 @@ export function postsReducer(
     action: PostsAction
 ): IPostsState {
     switch (action.type) {
-        case POSTS.LOAD_POSTS:
+        case POSTS.LOAD:
             return {
                 ...state,
                 posts: action.payload.posts.map(post => ({
                     ...post,
                     type: IPostTypes.JSON_PLACEHOLDER,
                     isFavorite: false
-                }))
+                })),
+                loaded: true
             }
-        case POSTS.OPEN_POST:
+        case POSTS.OPEN:
             return {...state, openedPost: action.payload.post}
         case POSTS.TOGGLE_FAVORITE:
             return {

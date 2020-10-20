@@ -1,14 +1,14 @@
-import {IPost} from "../../components/post/types/IPost";
+import {IPost} from "../../components/Post/types/IPost";
 import {POSTS} from "../actionTypes";
 import {createAction} from "typesafe-actions";
 
 export const addPostsToStore = createAction(
-    POSTS.LOAD_POSTS,
+    POSTS.LOAD,
     (posts: IPost[]) => ({posts})
 )();
 
 export const openPost = createAction(
-    POSTS.OPEN_POST,
+    POSTS.OPEN,
     (post: IPost) => ({post})
 )();
 

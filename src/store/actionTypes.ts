@@ -1,7 +1,10 @@
 export const POSTS = {
-    LOAD_POSTS: 'LOAD_POSTS',
-    OPEN_POST: 'OPEN_POST',
-    ADD_TO_FAVORITE: 'ADD_TO_FAVORITE',
-    REMOVE_FROM_FAVORITE: 'REMOVE_FROM_FAVORITE',
+    LOAD: 'LOAD_POSTS',
+    OPEN: 'OPEN_POST',
     TOGGLE_FAVORITE: 'TOGGLE_FAVORITE'
+} as const;
+
+export const MODAL = {
+    OPEN: 'OPEN_MODAL',
+    CLOSE: 'CLOSE_MODAL'
 } as const;
