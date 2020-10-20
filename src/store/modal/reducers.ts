@@ -5,8 +5,8 @@ export const initialState: IModalState = {
     component: undefined,
     props: {},
     options: {
-        size: IModalSize.SMALL,
-        title: 'Modal'
+        title: 'Modal',
+        size: IModalSize.SMALL
     },
     isOpen: false
 }
