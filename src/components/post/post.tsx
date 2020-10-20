@@ -1,85 +1,44 @@
-import React from "react";
-import {IPost} from "./types/IPost";
-import style from "./post.module.scss";
-import common from '../../common.module.scss';
-import {ReactComponent as StarIcon} from '../../assets/img/star.svg';
+import React, {ReactElement}            from "react";
+import style                            from "./post.module.scss";
+import common                           from '../../common.module.scss';
+import {ReactComponent as StarIcon}     from '../../assets/img/star.svg';
 import {ReactComponent as MoreInfoIcon} from '../../assets/img/more-info.svg';
-import {setClasses} from "../../helpers/helpers";
-import {openPost, addToFavorite, removeFromFavorite} from "../../store/posts/actions";
-import {connect, ConnectedProps} from "react-redux";
+import {useDispatch}                    from "react-redux";
+import {IPostProps}                     from "./types/IPostProps";
+import {cutText}                        from "../../utils/cutText";
+import {openPost, toggleFavorite}       from "../../store/posts/actions";
+import {setClasses}                     from "../../utils/setClasses";
 
-const mapDispatch = {openPost, addToFavorite, removeFromFavorite};
+export function Post({post}: IPostProps): ReactElement {
 
-const connector = connect(null, mapDispatch);
+    const dispatch = useDispatch();
 
-type PropsFromRedux = ConnectedProps<typeof connector>
+    const getCardTitle = () => cutText(post.title, 25);
+    const getCardBody = () => cutText(post.body, 75);
+    const getStarClass = () => (!post.isFavorite) ? style.starIcon_inactive : style.starIcon_active;
 
-interface Props extends PropsFromRedux {
-    post: IPost;
-}
+    const handleMoreInfoClick = () => dispatch(openPost(post));
 
-class Post extends React.Component<Props, any> {
+    const handleToggleFavoriteClick = () => dispatch(toggleFavorite(post.id));
 
-    private readonly post: IPost;
+    return <>
 
-    constructor(props: Props) {
-        super(props);
-        this.state = {};
-        this.post = this.props.post;
-    }
-
-    toUpperCase(value: string) {
-        return value[0].toUpperCase() + value.slice(1);
-    }
-
-    getTitleBody() {
-        const title = this.toUpperCase(this.post.title);
-        if (title.length < 25) return title;
-        return title.slice(0, 25) + '...';
-    }
-
-    getCardBody() {
-        const text = this.toUpperCase(this.post.body);
-        if (text.length < 75) return text;
-        return text.slice(0, 75) + '...';
-    }
-
-    handleMoreInfoClick = () => {
-        this.props.openPost(this.post);
-    }
-
-    handleToggleFavoriteClick = () => {
-        if (!this.post.isFavorite) {
-            this.props.addToFavorite(this.post.id);
-            return;
-        }
-        this.props.removeFromFavorite(this.post.id);
-    }
-
-    getStarClass() {
-        return (!this.post.isFavorite) ? style.starIcon_inactive : style.starIcon_active;
-    }
-
-    render() {
-        return (
-            <div className={style.card}>
-                <div className={style.cardTitle}>
-                    <span>{this.getTitleBody()}</span>
-                    <div className={style.cardControls}>
-                        <MoreInfoIcon
-                            className={setClasses(style.moreInfoIcon, common.icon)}
-                            onClick={this.handleMoreInfoClick}
-                        />
-                        <StarIcon
-                            className={setClasses(this.getStarClass(), common.icon)}
-                            onClick={this.handleToggleFavoriteClick}
-                        />
-                    </div>
+        <div className={style.card}>
+            <div className={style.cardTitle}>
+                <span>{getCardTitle()}</span>
+                <div className={style.cardControls}>
+                    <MoreInfoIcon
+                        className={setClasses(style.moreInfoIcon, common.icon)}
+                        onClick={handleMoreInfoClick}
+                    />
+                    <StarIcon
+                        className={setClasses(getStarClass(), common.icon)}
+                        onClick={handleToggleFavoriteClick}
+                    />
                 </div>
-                <p className={style.cardBody}>{this.getCardBody()}</p>
             </div>
-        );
-    }
-}
+            <p className={style.cardBody}>{getCardBody()}</p>
+        </div>
 
-export default connector(Post);
+    </>
+}

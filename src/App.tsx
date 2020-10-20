@@ -1,44 +1,33 @@
-import React from 'react';
-import style from './common.module.scss';
-import {IPost} from "./components/post/types/IPost";
-import Loader from "./components/loader/loader";
-import MainPage from "./view/main-page/mainPage";
-import {addPostsToStore} from "./store/posts/actions";
-import {connect, ConnectedProps} from "react-redux";
+import React, {ReactElement, useEffect, useState} from 'react';
+import style                                      from './common.module.scss';
+import {IPost}                                    from "./components/post/types/IPost";
+import {Loader}                                   from "./components/loader/loader";
+import MainPage                                   from "./view/main-page/mainPage";
+import {addPostsToStore}                          from "./store/posts/actions";
+import {useDispatch}                              from "react-redux";
 
-const mapDispatch = {addPostsToStore};
+export default function App(): ReactElement {
 
-const connector = connect(null, mapDispatch);
+    const [loading, setLoading] = useState<boolean>(true)
 
-type Props = ConnectedProps<typeof connector>
-type State = { loading: boolean };
+    const dispatch = useDispatch();
 
-class App extends React.Component<Props, State> {
-    constructor(props: Props) {
-        super(props);
-        this.state = { loading: true };
-    }
-
-    componentDidMount() {
-        setTimeout(() => this.loadPosts(), 1000);
-    }
-
-    loadPosts() {
+    const loadPosts = () => {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(response => response.json())
             .then((posts: IPost[]) => {
-                this.props.addPostsToStore(posts);
-                this.setState({loading: false});
+                dispatch(addPostsToStore(posts));
+                setLoading(false);
             })
     }
 
-    render() {
-        return (
-            <div className={style.appContainer}>
-                { this.state.loading ? <Loader/> : <MainPage/> }
-            </div>
-        );
-    }
-}
+    useEffect(() => {
+        setTimeout(() => loadPosts(), 1000);
+    })
 
-export default connector(App);
+    return (
+        <div className={style.appContainer}>
+            {loading ? <Loader/> : <MainPage/>}
+        </div>
+    )
+}

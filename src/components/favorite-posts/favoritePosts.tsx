@@ -1,43 +1,28 @@
-import React from "react";
-import style from './favorite-posts.module.scss';
-import common from '../../common.module.scss';
-import {setClasses} from "../../helpers/helpers";
-import {RootState} from "../../store/rootReducer";
-import {connect, ConnectedProps} from "react-redux";
-import Post from "../post/post";
+import React, {ReactElement} from "react";
+import style                 from './favorite-posts.module.scss';
+import common                from '../../common.module.scss';
+import {useSelector}         from "react-redux";
+import {Post}                from "../post/post";
+import {getFavoritePosts}    from "../../store/posts/selectors";
+import {setClasses}          from "../../utils/setClasses";
 
-const mapState = (state: RootState) => ({
-    posts: state.posts.posts
-});
+export function FavoritePosts(): ReactElement {
 
-const connector = connect(mapState);
+    const favoritePosts = useSelector(getFavoritePosts);
 
-type Props = ConnectedProps<typeof connector>;
-
-class FavoritePosts extends React.Component<Props, any> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {};
-    }
-
-    get favoritePosts() {
-        return this.props.posts.filter(post => post.isFavorite);
-    }
-
-    render() {
-        const posts = this.favoritePosts.map(post => {
-            return (
-                <div className={style.gridItem} key={post.id}>
-                    <Post post={post}/>
-                </div>
-            );
-        });
+    const posts = favoritePosts.map(post => {
         return (
-            <div className={setClasses(style.container, common.container)}>
-                {posts}
+            <div className={style.gridItem} key={post.id}>
+                <Post post={post}/>
             </div>
-        );
-    }
-}
+        )
+    });
 
-export default connector(FavoritePosts);
+    return <>
+
+        <div className={setClasses(style.container, common.container)}>
+            {posts}
+        </div>
+
+    </>
+}

@@ -1,42 +1,26 @@
-import React from "react";
-import style from './post-info.module.scss';
-import common from '../../common.module.scss';
-import {setClasses} from "../../helpers/helpers";
-import {RootState} from "../../store/rootReducer";
-import {connect, ConnectedProps} from "react-redux";
+import React, {ReactElement} from "react";
+import style                 from './post-info.module.scss';
+import common                from '../../common.module.scss';
+import {useSelector}         from "react-redux";
+import {setClasses}          from "../../utils/setClasses";
+import {getOpenedPost}       from "../../store/posts/selectors";
 
-const mapState = (state: RootState) => ({
-    post: state.posts.openedPost
-});
+export function PostInfo(): ReactElement {
 
-const connector = connect(mapState);
+    const post = useSelector(getOpenedPost);
 
-type Props = ConnectedProps<typeof connector>;
+    return <>
 
-class PostInfo extends React.Component<Props, any> {
-    constructor(props: Props) {
-        super(props);
+        <div className={setClasses(style.container, common.container)}>
+            {
+                !post
+                    ? <div className={style.empty}>Выберите пост</div>
+                    : <>
+                        <span className={style.title}>{post.title}</span>
+                        <p className={style.body}>{post.body}</p>
+                    </>
+            }
+        </div>
 
-        this.state = {};
-
-    }
-
-    render() {
-        const post = this.props.post;
-        return (
-            <div className={setClasses(style.container, common.container)}>
-                {
-                    !post
-                        ? <div className={style.empty}>Выберите пост</div>
-                        : <>
-                            <span className={style.title}>{post.title}</span>
-                            <p className={style.body}>{post.body}</p>
-                          </>
-                }
-            </div>
-        );
-    }
+    </>
 }
-
-
-export default connector(PostInfo);

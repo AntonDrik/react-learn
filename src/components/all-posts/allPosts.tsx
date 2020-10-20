@@ -1,43 +1,26 @@
-import React from "react";
-import style from './allPosts.module.scss';
-import common from '../../common.module.scss';
-import {connect, ConnectedProps} from 'react-redux';
-import {RootState} from "../../store/rootReducer";
-import Post from "../post/post";
-import {setClasses} from "../../helpers/helpers";
+import React, {ReactElement} from "react";
+import {Post}                from "../post/post";
+import style                 from './allPosts.module.scss';
+import common                from '../../common.module.scss';
+import {useSelector}         from 'react-redux';
+import {getActivePosts}      from "../../store/posts/selectors";
+import {setClasses}          from "../../utils/setClasses";
 
-const mapState = (state: RootState) => ({
-    posts: state.posts.posts
-});
+export function AllPosts(): ReactElement {
 
-const connector = connect(mapState);
+    const allPosts = useSelector(getActivePosts);
 
-type Props = ConnectedProps<typeof connector>;
-
-class AllPosts extends React.Component<Props, any> {
-    constructor(props: Props) {
-        super(props);
-        this.state = {};
-    }
-
-    get activePosts() {
-        return this.props.posts.filter(post => !post.isFavorite);
-    }
-
-    render() {
-        const posts = this.activePosts.map(post => {
-            return (
-                <div className={style.gridItem} key={post.id}>
-                    <Post post={post}/>
-                </div>
-            )
-        });
+    const posts = allPosts.map(post => {
         return (
-            <div className={setClasses(style.container, common.container)}>
-                {posts}
+            <div className={style.gridItem} key={post.id}>
+                <Post post={post}/>
             </div>
-        );
-    }
-}
+        )
+    });
 
-export default connector(AllPosts);
+    return <>
+        <div className={setClasses(style.container, common.container)}>
+            {posts}
+        </div>
+    </>
+}

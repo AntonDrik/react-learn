@@ -1,30 +1,18 @@
-import {ADD_TO_FAVORITE, LOAD_POSTS, OPEN_POST, PostsActionTypes, REMOVE_FROM_FAVORITE} from './types';
 import {IPost} from "../../components/post/types/IPost";
+import {POSTS} from "../actionTypes";
+import {createAction} from "typesafe-actions";
 
-export function addPostsToStore(posts: IPost[]): PostsActionTypes {
-    return {
-        type: LOAD_POSTS,
-        payload: posts
-    }
-}
+export const addPostsToStore = createAction(
+    POSTS.LOAD_POSTS,
+    (posts: IPost[]) => ({posts})
+)();
 
-export function openPost(post: IPost): PostsActionTypes {
-    return {
-        type: OPEN_POST,
-        payload: post
-    }
-}
+export const openPost = createAction(
+    POSTS.OPEN_POST,
+    (post: IPost) => ({post})
+)();
 
-export function addToFavorite(postId: number): PostsActionTypes {
-    return {
-        type: ADD_TO_FAVORITE,
-        payload: postId
-    }
-}
-
-export function removeFromFavorite(postId: number): PostsActionTypes {
-    return {
-        type: REMOVE_FROM_FAVORITE,
-        payload: postId
-    }
-}
+export const toggleFavorite = createAction(
+    POSTS.TOGGLE_FAVORITE,
+    (postId: number) => ({postId})
+)();
