@@ -1,6 +1,4 @@
 .card {
-  width: calc((100% / 4) - (2rem));
-  margin: 1rem;
   background-color: white;
   padding: 10px;
   border-radius: .5rem;
@@ -11,11 +9,14 @@
 }
 
 .cardTitle {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  background-color: #ececec;
+  padding: 10px;
+  margin: -10px -10px 10px -10px;
+  border-radius: .5rem .5rem 0 0;
   & span {
     font-weight: bold;
     font-size: 16px;
@@ -31,7 +32,14 @@
   font-size: 14px;
 }
 
-.cardIcon {
+.starIcon_inactive {
   fill: black;
-  cursor: pointer;
+}
+
+.starIcon_active {
+  fill: #989831;
+}
+
+.moreInfoIcon {
+  margin-right: 5px;
 }

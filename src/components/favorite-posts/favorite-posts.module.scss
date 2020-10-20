@@ -2,3 +2,8 @@
   width: 25%;
   height: 65vh;
 }
+
+.gridItem {
+  margin: 1rem;
+  width: calc(100% - 2rem);
+}
