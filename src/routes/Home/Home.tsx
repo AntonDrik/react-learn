@@ -1,11 +1,12 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import common                                     from '../../common.module.scss';
-import {useDispatch, useSelector}                 from 'react-redux';
-import {getActivePosts, hasPosts}                 from "../../store/posts/selectors";
-import {addPostsToStore}                          from "../../store/posts/actions";
-import {IPost}                                    from "../../components/Post/types/IPost";
-import {Loader}                                   from "../../components/Loader/Loader";
-import {Post}                                     from "../../components/Post/Post";
+import common from '../../common.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {getActivePosts, hasPosts} from "../../store/posts/selectors";
+import {addPostsToStore} from "../../store/posts/actions";
+import {IPost} from "../../components/Post/types/IPost";
+import {Loader} from "../../components/Loader/Loader";
+import {Post} from "../../components/Post/Post";
+import ModifyText from '../../utils/TextBuilder';
 
 export default function Home(): ReactElement {
 

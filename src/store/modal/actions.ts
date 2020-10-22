@@ -2,6 +2,8 @@ import {createAction}               from "typesafe-actions";
 import {MODAL}                      from "../actionTypes"
 import {IModalOptions, IModalState} from "./types";
 import {ReactElement}               from "react";
+
+
 export const openModal = createAction(
     MODAL.OPEN,
     (

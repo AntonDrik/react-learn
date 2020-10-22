@@ -1,3 +1,3 @@
-export function setClasses(...args: string[]) {
+export default function setClasses(...args: string[]) {
     return args.join(' ');
 }

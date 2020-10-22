@@ -1,4 +1,4 @@
-import {IPost} from "./IPost";
+import {IPost} from './IPost';
 
 type PostContainerSize = 1 | 2 | 3 | 4;
 
