@@ -1,6 +1,6 @@
-import React, {ReactElement}         from "react";
-import {ReactComponent as CloseIcon} from "../../../../assets/img/close.svg";
-import {setClasses}                  from "../../../../utils/setClasses";
+import React, {ReactElement, useMemo} from "react";
+import {ReactComponent as CloseIcon}  from "../../../../assets/img/close.svg";
+import setClasses                    from "../../../../utils/setClasses";
 import common                        from "../../../../common.module.scss";
 import {IModalCardProps}             from "./types/IModalCardProps";
 import style                         from './modalCard.module.scss';
@@ -14,7 +14,7 @@ export function ModalCard(props: IModalCardProps): ReactElement {
 
     const dispatch = useDispatch();
 
-    const getModalSize = () => {
+    const modalSize = useMemo(() => {
         switch (options.size) {
             case IModalSize.SMALL:
                 return '400px';
@@ -23,13 +23,13 @@ export function ModalCard(props: IModalCardProps): ReactElement {
             default:
                 return '400px';
         }
-    }
+    }, [options.size]);
 
     const handleCloseModal = () => dispatch(closeModal());
 
     return <>
 
-        <div className={style.card} style={{width: getModalSize()}}>
+        <div className={style.card} style={{width: modalSize}}>
             <div className={style.cardTitle}>
                 {options.title}
                 <div className={style.cardControls}>

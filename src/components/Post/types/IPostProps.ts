@@ -1,6 +1,6 @@
 import {IPost} from './IPost';
 
-type PostContainerSize = 1 | 2 | 3 | 4;
+type PostContainerSize = 100 | 50 | 25;
 
 export interface IPostProps {
     post: IPost;

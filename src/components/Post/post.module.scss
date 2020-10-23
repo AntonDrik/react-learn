@@ -1,13 +1,27 @@
 .card {
   padding: 10px;
-  max-height: 100px;
+  height: 120px;
   border-radius: .5rem;
   margin: 1rem;
   box-shadow: 0 0 10px rgba(154, 154, 154, 0.5);
   background-color: white;
+  overflow: hidden;
+
   * {
     color: black;
   }
+}
+
+.card100 {
+  width: calc(100% - 2rem);
+}
+
+.card50 {
+  width: calc(50% - 2rem);
+}
+
+.card25 {
+  width: calc(25% - 2rem);
 }
 
 .cardTitle {
@@ -19,9 +33,11 @@
   padding: 10px;
   margin: -10px -10px 10px -10px;
   border-radius: .5rem .5rem 0 0;
+
   & span {
     font-weight: bold;
     font-size: 16px;
+    margin-right: 10px;
   }
 }
 
@@ -44,4 +60,23 @@
 
 .moreInfoIcon {
   margin-right: 5px;
+}
+
+@media (max-width: 992px) {
+  .card25 {
+    width: calc(33.3% - 2rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .card25 {
+    width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 576px) {
+  .card25,
+  .card50 {
+    width: calc(100% - 2rem);
+  }
 }

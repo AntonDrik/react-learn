@@ -8,7 +8,7 @@ export default function Favorites(): ReactElement {
 
     const favoritePosts = useSelector(getFavoritePosts);
 
-    const posts = favoritePosts.map(post => <Post size={4} post={post} key={post.id}/>);
+    const posts = favoritePosts.map(post => <Post size={25} post={post} key={post.id}/>);
 
     return <div className={common.container}>{posts}</div>
 }

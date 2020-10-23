@@ -1,14 +1,19 @@
-import {IPost}                                     from "../../components/Post/types/IPost";
-import {ActionType}                                from "typesafe-actions";
-import {addPostsToStore, openPost, toggleFavorite} from "./actions";
+import {IPost}                                      from "../../components/Post/types/IPost";
+import {ActionType}                                  from "typesafe-actions";
+import {fetchPostsActions, openPost, toggleFavorite} from "./actions";
 
 export interface IPostsState {
     readonly posts: IPost[];
     readonly openedPost?: IPost;
     readonly loaded: boolean;
+    readonly loading: boolean;
 }
 
+export type LoadPostsActions = ActionType<typeof fetchPostsActions>;
+export type OpenPostsAction = ActionType<typeof openPost>;
+export type toggleFavoriteAction = ActionType<typeof toggleFavorite>;
+
 export type PostsAction =
-    | ActionType<typeof addPostsToStore>
-    | ActionType<typeof openPost>
-    | ActionType<typeof toggleFavorite>
+    | LoadPostsActions
+    | OpenPostsAction
+    | toggleFavoriteAction;

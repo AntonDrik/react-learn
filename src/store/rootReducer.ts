@@ -6,5 +6,3 @@ export const rootReducer = combineReducers({
     posts: postsReducer,
     modal: modalReducer
 });
-
-export type RootState = ReturnType<typeof rootReducer>;

@@ -1,43 +1,25 @@
-import React, {ReactElement, useEffect, useState} from "react";
-import common from '../../common.module.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {getActivePosts, hasPosts} from "../../store/posts/selectors";
-import {addPostsToStore} from "../../store/posts/actions";
-import {IPost} from "../../components/Post/types/IPost";
-import {Loader} from "../../components/Loader/Loader";
-import {Post} from "../../components/Post/Post";
-import ModifyText from '../../utils/TextBuilder';
+import React, {ReactElement, useCallback, useEffect} from "react";
+import common                                        from '../../common.module.scss';
+import {useDispatch, useSelector}                    from 'react-redux';
+import {getActivePosts, getPostsLoader}              from "../../store/posts/selectors";
+import {Loader}                                      from "../../components/Loader/Loader";
+import {Post}                                        from "../../components/Post/Post";
+import {fetchPosts}                                  from "../../store/posts/reducers";
 
 export default function Home(): ReactElement {
 
-    const [loading, setLoading] = useState<boolean>(false);
-
     const allPosts = useSelector(getActivePosts);
-    const postsLoaded = useSelector(hasPosts);
+    const loading = useSelector(getPostsLoader);
 
     const dispatch = useDispatch();
 
-    const loadPosts = () => {
-
-        if (postsLoaded) return;
-
-        setLoading(true);
-        setTimeout(() => {
-            fetch('https://jsonplaceholder.typicode.com/posts')
-                .then(response => response.json())
-                .then((posts: IPost[]) => {
-                    dispatch(addPostsToStore(posts));
-                    setLoading(false);
-                })
-        }, 1000)
-
-    }
+    const loadPosts = useCallback(() => dispatch(fetchPosts()), [dispatch]);
 
     useEffect(() => {
         loadPosts();
-    }, [])
+    }, [loadPosts])
 
-    const posts = allPosts.map(post => <Post size={4} post={post} key={post.id}/>);
+    const posts = allPosts.map(post => <Post size={25} post={post} key={post.id}/>);
 
     return <div className={common.container}>
         {loading ? <Loader/> : posts}

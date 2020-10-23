@@ -1,11 +1,12 @@
-import {IPost} from "../../components/Post/types/IPost";
-import {POSTS} from "../actionTypes";
-import {createAction} from "typesafe-actions";
+import {IPost}                           from "../../components/Post/types/IPost";
+import {POSTS}                        from "../actionTypes";
+import {createAction, createAsyncAction} from "typesafe-actions";
 
-export const addPostsToStore = createAction(
-    POSTS.LOAD,
-    (posts: IPost[]) => ({posts})
-)();
+export const fetchPostsActions = createAsyncAction(
+    POSTS.REQUEST,
+    POSTS.SUCCESS,
+    POSTS.FAILURE
+)<undefined, IPost[], void>();
 
 export const openPost = createAction(
     POSTS.OPEN,

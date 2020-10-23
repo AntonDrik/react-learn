@@ -9,7 +9,7 @@ export enum IModalSize {
 
 export interface IModalOptions {
     title: string;
-    size?: IModalSize,
+    size?: IModalSize;
 }
 
 export interface IModalState {

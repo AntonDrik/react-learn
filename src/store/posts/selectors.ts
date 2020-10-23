@@ -1,6 +1,6 @@
-import {RootState} from "../rootReducer";
+import {RootState} from "../types/RootState";
 
-export const hasPosts = (state: RootState) => state.posts.loaded;
+export const getPostsLoader = (state: RootState) => state.posts.loading;
 
 export const getActivePosts = (state: RootState) =>
     state.posts.posts.filter(post => !post.isFavorite);

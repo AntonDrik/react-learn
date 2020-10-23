@@ -9,22 +9,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.overlay-enter {
+  transition: all .5s ease;
   opacity: 0;
 }
 
-.overlay-enter.overlay-enter-active {
+.overlayEnter {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  visibility: visible;
 }
 
-.overlay-exit {
-  opacity: 1;
-}
-
-.overlay-exit.overlay-exit-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+.overlayLeave {
+  opacity: 0;
+  visibility: hidden;
 }
